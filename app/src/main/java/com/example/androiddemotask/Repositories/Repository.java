@@ -1,5 +1,6 @@
 package com.example.androiddemotask.Repositories;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.androiddemotask.Models.Example;
@@ -14,9 +15,12 @@ import retrofit2.Response;
 
 public class Repository {
 
-    private MutableLiveData<Example> list;
+    private MutableLiveData<Example> list = new MutableLiveData<>();
 
-    public MutableLiveData<Example> getHealthTips() {
+    public Repository() {
+    }
+
+    public LiveData<Example> getHealthTips() {
         HealthApi api = RetrofitClient.getRetrofitClient().create(HealthApi.class);
 
         Call<Example> call = api.getHealthList(0, 2946);

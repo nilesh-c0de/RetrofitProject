@@ -1,6 +1,8 @@
 package com.example.androiddemotask;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import com.example.androiddemotask.Adapters.MyAdapter;
 import com.example.androiddemotask.Models.Example;
 import com.example.androiddemotask.Models.Resultarray;
 import com.example.androiddemotask.ViewModels.MyViewModel;
+import com.example.androiddemotask.databinding.ActivityHealthListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +28,34 @@ public class HealthListActivity extends AppCompatActivity {
     MyViewModel myViewModel;
 
     List<Resultarray> list;
-
+    ActivityHealthListBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_list);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        progressBar = findViewById(R.id.progressBar);
         myViewModel = new ViewModelProvider(HealthListActivity.this).get(MyViewModel.class);
 
-        myViewModel.getList().observe(this, new Observer<Example>() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_health_list);
+        mBinding.setViewmodel(myViewModel);
+        mBinding.setLifecycleOwner(this);
+
+
+
+        LiveData<Example> s = myViewModel.getList();
+        s.observe(this, new Observer<Example>() {
             @Override
             public void onChanged(Example example) {
-                if(example!=null) {
-                    progressBar.setVisibility(View.GONE);
+                if (example != null) {
+                    mBinding.progressBar.setVisibility(View.GONE);
                     list = example.getResultarray();
-                    recyclerView.setLayoutManager(new LinearLayoutManager(HealthListActivity.this));
-                    recyclerView.setAdapter(new MyAdapter(HealthListActivity.this, list));
+                    mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(HealthListActivity.this));
+                    mBinding.recyclerView.setAdapter(new MyAdapter(HealthListActivity.this, list));
                 }
             }
         });
+
 
     }
 }

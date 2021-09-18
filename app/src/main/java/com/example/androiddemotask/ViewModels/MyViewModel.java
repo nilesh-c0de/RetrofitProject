@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.androiddemotask.Models.Example;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class MyViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Example> listMutableLiveData;
+    private LiveData<Example> listMutableLiveData;
     private Repository repository;
 
 
@@ -24,8 +25,11 @@ public class MyViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<Example> getList() {
-        listMutableLiveData = repository.getHealthTips();
+    public LiveData<Example> getList() {
+        if(listMutableLiveData==null) {
+            listMutableLiveData = repository.getHealthTips();
+        }
+
         return listMutableLiveData;
     }
 }
