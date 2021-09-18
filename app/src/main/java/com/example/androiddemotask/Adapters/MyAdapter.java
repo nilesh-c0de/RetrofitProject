@@ -10,15 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androiddemotask.HealthListActivity;
-import com.example.androiddemotask.MainActivity;
-import com.example.androiddemotask.Models.Example;
-import com.example.androiddemotask.Models.Health;
 import com.example.androiddemotask.Models.Resultarray;
 import com.example.androiddemotask.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -44,6 +39,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Resultarray obj = list.get(position);
+        holder.txtTitle.setText(obj.getTitle());
+        holder.txtSummery.setText(obj.getSummary());
+        holder.txtViews.setText(obj.getTotalViews());
+        holder.txtLikes.setText(obj.getLikestatus());
+        Picasso.get().load(obj.getImage()).into(holder.img);
 
 
     }

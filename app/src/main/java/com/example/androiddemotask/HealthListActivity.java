@@ -1,7 +1,6 @@
 package com.example.androiddemotask;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,19 +12,19 @@ import android.widget.ProgressBar;
 
 import com.example.androiddemotask.Adapters.MyAdapter;
 import com.example.androiddemotask.Models.Example;
-import com.example.androiddemotask.Models.Health;
 import com.example.androiddemotask.Models.Resultarray;
 import com.example.androiddemotask.ViewModels.MyViewModel;
 
 import java.util.ArrayList;
-
-import javax.crypto.ExemptionMechanism;
+import java.util.List;
 
 public class HealthListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
     MyViewModel myViewModel;
+
+    List<Resultarray> list;
 
 
     @Override
@@ -37,30 +36,17 @@ public class HealthListActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         myViewModel = new ViewModelProvider(HealthListActivity.this).get(MyViewModel.class);
 
-//        MutableLiveData<ArrayList<Health>> listMutableLiveData = myViewModel.getHealthTips();
-myViewModel.getListLiveData();
-        /*myViewModel.getListMutableLiveData().observe(this, new Observer<ArrayList<Example>>() {
-            @Override
-            public void onChanged(ArrayList<Example> health) {
-
-                if (health != null) {
-
-
-                    progressBar.setVisibility(View.GONE);
-
-                    list = health;
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(HealthListActivity.this));
-//                    recyclerView.setAdapter(new MyAdapter(HealthListActivity.this, list));
-                }
-            }
-        });*/
         myViewModel.getList().observe(this, new Observer<Example>() {
             @Override
             public void onChanged(Example example) {
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(HealthListActivity.this));
-                  recyclerView.setAdapter(new MyAdapter(getApplication(),  example.getResultarray()));
+                if(example!=null) {
+                    progressBar.setVisibility(View.GONE);
+                    list = example.getResultarray();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(HealthListActivity.this));
+                    recyclerView.setAdapter(new MyAdapter(HealthListActivity.this, list));
+                }
             }
         });
+
     }
 }
