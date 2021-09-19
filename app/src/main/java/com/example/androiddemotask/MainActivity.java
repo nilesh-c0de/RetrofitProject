@@ -20,6 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), HealthListActivity.class));
             }
-        }, 3000);
+        }, 2000);
     }
 }
