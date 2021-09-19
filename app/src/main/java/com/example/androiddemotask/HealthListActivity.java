@@ -15,10 +15,9 @@ import android.widget.ProgressBar;
 import com.example.androiddemotask.Adapters.MyAdapter;
 import com.example.androiddemotask.Models.Example;
 import com.example.androiddemotask.Models.Resultarray;
-import com.example.androiddemotask.ViewModels.MyViewModel;
+import com.example.androiddemotask.viewmodels.MyViewModel;
 import com.example.androiddemotask.databinding.ActivityHealthListBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HealthListActivity extends AppCompatActivity {
@@ -41,10 +40,9 @@ public class HealthListActivity extends AppCompatActivity {
         mBinding.setViewmodel(myViewModel);
         mBinding.setLifecycleOwner(this);
 
+        myViewModel.getHealthTipList();
 
-
-        LiveData<Example> s = myViewModel.getList();
-        s.observe(this, new Observer<Example>() {
+        myViewModel.getList().observe(this, new Observer<Example>() {
             @Override
             public void onChanged(Example example) {
                 if (example != null) {

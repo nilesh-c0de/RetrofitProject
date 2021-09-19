@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.androiddemotask.ViewModels.MyViewModel" />
+            type="com.example.androiddemotask.viewmodels.MyViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

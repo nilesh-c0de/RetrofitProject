@@ -4,12 +4,12 @@ import com.example.androiddemotask.Models.Example;
 
 import java.util.ArrayList;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-
 public interface HealthApi {
 
     @FormUrlEncoded
@@ -22,4 +22,8 @@ public interface HealthApi {
 
 //    @POST("posts")
 //    Call<Post> createPost(@Body Post post);
+
+    @FormUrlEncoded
+    @POST("healthtips.php")
+     Observable<Example> getHList(@Field("lastcount") Integer lastcount, @Field("userid") Integer userid);
 }

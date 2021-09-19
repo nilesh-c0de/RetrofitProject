@@ -9,6 +9,7 @@ import com.example.androiddemotask.network.RetrofitClient;
 
 import java.util.ArrayList;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +17,7 @@ import retrofit2.Response;
 public class Repository {
 
     private MutableLiveData<Example> list = new MutableLiveData<>();
+    public HealthApi mApiService = RetrofitClient.getRetrofitClient().create(HealthApi.class);
 
     public Repository() {
     }
@@ -36,5 +38,12 @@ public class Repository {
             }
         });
         return list;
+    }
+
+
+
+
+    public Observable<Example> getHlist(Integer lastcount, Integer userid) {
+        return mApiService.getHList(lastcount,userid);
     }
 }
